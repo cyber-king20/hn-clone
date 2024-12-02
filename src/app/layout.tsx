@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
 import Header from "@/components/Header";
+import type { Metadata } from "next";
+import "./globals.css";
+import { headers } from "next/headers";
 
 
 
@@ -10,15 +10,18 @@ export const metadata: Metadata = {
   description: 'A modern Hacker News clone built with Next.js',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") || "/";
+  
   return (
     <html lang="en">
       <body className="min-h-screen bg-gray-50 text-gray-800">
-        <Header />
+        <Header pathname={pathname} />
         {children}
       </body>
     </html>

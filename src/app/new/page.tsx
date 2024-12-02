@@ -5,12 +5,11 @@ import Pagination from '@/components/Pagination';
 import Loading from '../loading';
 import PageHeading from '@/components/PageHeading';
 import { STORIES_PER_PAGE } from '@/lib/constants';
+import { PageProps } from '@/types';
 
 export default async function NewStories({
   searchParams,
-}: {
-  searchParams: { page?: string };
-}) {
+}:  PageProps) {
   const {page} = await searchParams;
   const pageNumber = Number(page) || 1;
   const { stories, totalPages } = await fetchStories('new', pageNumber);

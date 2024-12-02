@@ -1,11 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
-export default function Header() {
-  const pathname = usePathname();
-
+export default function Header({ pathname }: { pathname: string }) {
   return (
     <header className="bg-orange-500 p-2">
       <nav className="max-w-6xl mx-auto flex items-center gap-4">
@@ -13,12 +10,6 @@ export default function Header() {
           Hacker News
         </Link>
         <div className="flex gap-4 text-sm">
-          {/* <Link 
-            href="/"
-            className={pathname === '/' ? 'text-white' : 'text-gray-100'}
-          >
-            top
-          </Link> */}
           <Link 
             href="/new"
             className={pathname === '/new' ? 'text-white' : 'text-gray-100'}

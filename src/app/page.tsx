@@ -1,17 +1,14 @@
-import { Suspense } from 'react';
-import { fetchStories } from '@/lib/api';
-import StoryItem from '@/components/StoryItem';
-import Pagination from '@/components/Pagination';
-import Loading from './loading';
-import { STORIES_PER_PAGE } from '@/lib/constants';
 import PageHeading from '@/components/PageHeading';
+import Pagination from '@/components/Pagination';
+import StoryItem from '@/components/StoryItem';
+import { fetchStories } from '@/lib/api';
+import { STORIES_PER_PAGE } from '@/lib/constants';
+import { PageProps } from '@/types';
 
 // Mark the component as a Server Component
 export default async function Home({
   searchParams,
-}: {
-  searchParams: { page?: string };
-}) {
+}:  PageProps) {
 
   const {page} = await searchParams;
   const pageNumber = Number(page) || 1;

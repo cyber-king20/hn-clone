@@ -1,13 +1,16 @@
-import { fetchUser } from "@/lib/hn";
+import { fetchUserDetails } from "@/lib/api";
 import { formatTime } from "@/lib/utils";
+
+
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
 
 export default async function UserPage({
   params,
-}: {
-  params: { id: string };
-}) {
+}: PageProps) {
   const {id} = await params;
-  const user = await fetchUser(id);
+  const user = await fetchUserDetails(id);
 
   return (
     <main className="max-w-3xl mx-auto p-4">

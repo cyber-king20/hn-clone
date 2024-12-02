@@ -1,31 +1,9 @@
-'use client';
-
 import { formatTime } from '@/lib/utils';
-import { Story, Comment } from '@/types';
-import { useState, useEffect } from 'react';
+import { Story } from '@/types';
 import Link from 'next/link';
 
 export default function StoryItem({ story, index }: { story: Story, index:number }) {
   const domain = story.url ? new URL(story.url).hostname : null;
-  const [showComments, setShowComments] = useState(false);
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (showComments) {
-      setIsLoading(true);
-      fetch(`/api/comments/${story.id}`)
-        .then(res => res.json())
-        .then(data => {
-          setComments(data);
-          setIsLoading(false);
-        })
-        .catch(error => {
-          console.error('Error fetching comments:', error);
-          setIsLoading(false);
-        });
-    }
-  }, [showComments, story.id]);
 
   return (
     <article className="py-2 hover:bg-gray-50 border shadow-lg p-4 rounded-lg">
@@ -68,35 +46,6 @@ export default function StoryItem({ story, index }: { story: Story, index:number
           </div>
         </div>
       </div>
-      
-      {/* <button 
-        onClick={() => setShowComments(!showComments)}
-        className="text-gray-500 text-sm hover:text-gray-700"
-      >
-        {showComments ? 'Hide Comments' : `${story.descendants || 0} comments`}
-      </button> */}
-
-      {/* {showComments && (
-        <div className="mt-2 ml-8">
-          {isLoading ? (
-            <p>Loading comments...</p>
-          ) : (
-            <div className="space-y-4">
-              {comments.map((comment) => (
-                <div key={comment.id} className="text-sm">
-                  <div className="text-gray-500 text-xs">
-                    {comment.by} | {formatTime(comment.time)}
-                  </div>
-                  <div 
-                    className="mt-1 text-black" 
-                    dangerouslySetInnerHTML={{ __html: comment.text || '' }} 
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )} */}
     </article>
   );
 }
