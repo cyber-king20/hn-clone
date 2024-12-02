@@ -28,9 +28,3 @@ export default async function RootLayout({
   );
 }
 
-// Add cache control headers
-export function generateHeaders() {
-  return {
-    'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=599'
-  };
-}
